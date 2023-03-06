@@ -1,0 +1,90 @@
+-- INSERT the given  details into the table employeee_Details
+CREATE TABLE Employee_Details(
+	EmployeeID int,
+	Firstname varchar(255),
+	Lastname varchar(255),
+	Salary float,
+	Joiningdate date,
+	Dept varchar(255),
+	Gender varchar(255));
+select * from Employee_Details;
+
+INSERT INTO Employee_Details VALUES
+	(1,'Vikas','Ahalwat',600000.00,'2013-02-15','IT','Male'),
+	(2,'Nikita','Jain',530000.00,'2014-01-09','HR','Female'),
+	(3,'Ashish','Kumar',1000000.00,'2014-01-09','IT','Male'),
+	(4,'Nikhil','Sharma',480000.00,'2014-01-09','HR','Male'),
+	(5,'Anish','Kadian',500000.00,'2014-01-09','Payroll','Male');
+
+select * from Employee_Details;
+
+-- INSERT the given  details into the table Project_Details
+
+
+Create table Project_Details(
+	ProjectdetailID int,
+	EmployeedetailID int,
+	ProjectName varchar(255));
+
+select * from Project_Details;
+INSERT INTO Project_Details Values
+	(1,1,'Task Track'),
+	(2,1,'CLP'),
+	(3,1,'Survey Management'),
+	(4,2,'HR Management'),
+	(5,3,'Task Track'),
+	(6,3,'GRS'),
+	(7,3,'DDS'),
+	(8,4,'HR Management'),
+	(9,6,'GL Management');
+
+Select * from Project_Details;
+
+
+
+
+-- 1. Get employee name, project name order by firstname from "EmployeeDetail" and "ProjectDetail" 
+-- 	  for those employee which have assigned project already.
+
+SELECT Employee_Details.firstname, Employee_Details.lastname, Project_Details.projectname 
+FROM Employee_Details JOIN Project_Details 
+ON Employee_details.EmployeeID = Project_Details.EmployeedetailID 
+ORDER BY Employee_Details.firstname;
+
+
+-- 2. Get employee name, project name order by firstname from "EmployeeDetail" and "ProjectDetail" 
+-- 	  for all employee even they have not assigned project.
+
+SELECT Employee_Details.firstname, Employee_Details.lastname, Project_Details.projectname 
+FROM Employee_Details LEFT JOIN Project_Details 
+ON Employee_details.EmployeeID = Project_Details.EmployeedetailID 
+ORDER BY Employee_Details.firstname;
+
+
+-- 3. Get all project name even they have not matching any employeeid, in left table, order by firstname from 
+-- 	  "EmployeeDetail" and "ProjectDetail".
+
+SELECT Employee_Details.firstname, Employee_Details.lastname, Project_Details.projectname 
+FROM Employee_Details RIGHT JOIN Project_Details 
+ON Employee_details.EmployeeID = Project_Details.EmployeedetailID 
+ORDER BY Employee_Details.firstname;
+
+
+-- 4. Get complete record(employeename, project name) from both tables([EmployeeDetail],[ProjectDetail]), 
+-- 	  if no match found in any table then show NULL.
+
+SELECT Employee_Details.firstname,Employee_Details.lastname,Project_Details.projectname 
+FROM Employee_Details FULL OUTER JOIN Project_Details ON Employee_Details.EmployeeID = Project_Details.EmployeedetailID
+ORDER BY Employee_Details.firstname; 
+
+
+-- 5. Write a query to find out the project name which is not assigned to any employee( tables :- [EmployeeDetail],[ProjectDetail]).
+SELECT Employee_Details.firstname,Employee_Details.lastname,Project_Details.projectname 
+FROM Employee_Details RIGHT JOIN Project_Details ON Employee_Details.EmployeeID = Project_Details.EmployeedetailID
+WHERE Employee_Details.firstname IS Null; 
+
+-- 6. Write down the query to fetch EmployeeName & Project who has assign more than one project.
+SELECT Employee_Details.firstname, Employee_Details.lastname, Project_Details.projectname 
+FROM Employee_Details JOIN Project_Details ON Employee_Details.employeeid = Project_Details.EmployeedetailID 
+WHERE Employee_Details.employeeid IN(SELECT EmployeedetailID FROM Project_Details GROUP BY EmployeedetailID HAVING COUNT(EmployeedetailID)>1); 
+
