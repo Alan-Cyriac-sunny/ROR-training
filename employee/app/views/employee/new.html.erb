@@ -1,0 +1,38 @@
+<h1 align ='center'>New Employee</h1>
+
+<%= form_with model: @Employe, url: employee_index_path, method: :post, local: true do |form| %>
+<div align="center">
+	<%= form.label :name %>
+	<%= form.text_field :name %>
+	<br>
+	<br>
+	<%= form.label :email %>
+	<%= form.email_field :email %>
+	<br>
+	<br>
+	<%= form.label :phone %>
+	<%= form.text_field :phone %>
+	<br>
+	<br>
+	<b><%= form.label :gender  %>:</b>
+	<%= form.radio_button :gender, :'male' %>
+	<%= form.label :gender_male, 'Male' %>
+	<%= form.radio_button :gender, :'female' %>
+	<%= form.label :gender_female, 'Female' %>
+	<br>
+	<br>
+	<b><%= form.label :skills %>:</b>
+    <% ['Ruby', 'Python', 'Java', 'C++'].each do |skill| %>
+      <%= form.check_box :skills, { multiple: true }, skill, nil %>
+      <%= skill %>  
+    <% end %>
+	<br>
+	<br>
+	<b><%= form.label :department %>:</b>
+  	<%= form.select :department, ['Sales', 'Marketing', 'Engineering', 'Finance'] %>
+	<br>
+	<br>
+	<br>
+	<%= form.submit 'submit' %>
+</div>
+<% end %>

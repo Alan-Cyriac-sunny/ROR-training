@@ -1,0 +1,37 @@
+<h3 align="center">Update  Details</h3>
+<div align ="center">
+    <%= form_with model: @Employe, url: employee_path, method: :PATCH, local: true do |form| %>
+    <%= form.label :name %>
+    <%= form.text_field :name, value: @employee.name %>
+    <br>
+    <br>
+    <%= form.label :email %>
+    <%= form.text_field :email, value: @employee.email %>
+    <br>
+    <br>
+    <%= form.label :phone %>
+    <%= form.text_field :phone, value: @employee.phone %>
+    <br>
+    <br>
+    <b><%= form.label :gender %>:</b>
+    <%= form.radio_button :gender, :'male', checked:(@employee.gender == 'male') %>
+    <%= form.label :gender_male, 'Male' %>
+    <%= form.radio_button :gender, :'female', checked:(@employee.gender == 'female') %>
+    <%= form.label :gender_female, 'Female' %>
+    <br>
+    <br>
+    <b><%= form.label :skills %>:</b>
+    <% ['Ruby', 'Python', 'Java', 'C++'].each do |skill| %>
+      <%= form.check_box :skills, { multiple: true, checked: (@employee.skills&.include?(skill)) }, skill %>
+      <%= skill %>
+    <% end %>
+
+    <br>
+    <br>
+    <b><%= form.label :department %>:</b>
+    <%= form.select :department, ['Sales', 'Marketing', 'Engineering', 'Finance'], selected: (@employee.department) %>
+    <br>
+    <br>
+      <%= form.submit %>
+  <% end %>
+</div>

@@ -1,0 +1,22 @@
+<!-- <h1>Listing Students</h1>
+ <%= link_to 'Add student', new_student_path %>
+ <ul>
+ 	<% @student.each do |student| %>
+       <li><%= link_to student.name, student_path(student) %></li>
+     <% end %>
+ </ul> -->
+
+
+ <table>
+  <% @student.each do |student| %>
+    <tr>
+      <td><%= student.name%></td>
+      <td><%= student.phone %> </td>
+      <td><%= link_to 'show', student_path(student) %></td>
+      <td><%= button_to 'Edit', edit_student_path(student), method: 'get'%></td>
+      <td>
+      <td><%= button_to 'Remove', student_path(student), method: 'delete', data: { confirm: 'Are you sure you want to delete this student?' } %></td>
+</td>
+  <% end %>
+</table>
+<%= link_to "Add a New student", new_student_path %>

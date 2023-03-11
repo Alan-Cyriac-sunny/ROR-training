@@ -1,0 +1,32 @@
+<h1 align="center">Listing Employees</h1>
+<table align = "center"  cellpadding="20">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Phone</th>
+			<th>Gender</th>
+			<th>Skills</th>
+			<th>Department</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @employees.each do |employee| %>
+		<tr>
+			<td><%= employee.name %></td>
+			<td><%= employee.email %></td>
+			<td><%= employee.phone %></td>
+			<td><%= employee.gender %></td>
+			<td><%= employee.skills %></td>
+			<td><%= employee.department %></td>
+			<td><%= link_to 'show', employee_path(employee) %></td>
+			<td><%= link_to 'Edit', edit_employee_path(employee), method: 'get'%></td>
+			 <td><%= button_to 'Remove', employee_path(employee), method: 'delete', data: { turbo_confirm: 'Are you sure?' } %></td>
+		</tr>
+		<% end %>  
+	</tbody>
+</table>
+<div align="center">
+	<br>
+	<b>Click below to add new Employee</b><br><br><%= link_to 'New', new_employee_path %>
+</div>
