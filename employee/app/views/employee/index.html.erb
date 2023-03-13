@@ -8,6 +8,8 @@
 			<th>Gender</th>
 			<th>Skills</th>
 			<th>Department</th>
+			<th>file</th>
+
 		</tr>
 	</thead>
 	<tbody>
@@ -19,6 +21,13 @@
 			<td><%= employee.gender %></td>
 			<td><%= employee.skills %></td>
 			<td><%= employee.department %></td>
+			<td> 
+				<% if employee.file.present? %>
+    				<%= image_tag(employee.file.url, :height =>"150", :width => "150", :crop => :fill) %>
+  				<% else %>
+    				No image available
+  				<% end %>
+  			</td>
 			<td><%= link_to 'show', employee_path(employee) %></td>
 			<td><%= link_to 'Edit', edit_employee_path(employee), method: 'get'%></td>
 			 <td><%= button_to 'Remove', employee_path(employee), method: 'delete', data: { turbo_confirm: 'Are you sure?' } %></td>

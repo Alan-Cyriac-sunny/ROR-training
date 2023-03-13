@@ -1,6 +1,7 @@
 class EmployeeController < ApplicationController
 	def index
 		@employees = Employe.all.order(:id)
+		# @employees.file = params[:file]
     end
 
 	def new
@@ -44,6 +45,6 @@ class EmployeeController < ApplicationController
   protected
 
   def employee_params
-  	params.permit(:name, :email, :phone, :gender, :department, skills: [])
+  	params.permit(:name, :email, :phone, :gender, :department, :file, skills: [])
   end
 end

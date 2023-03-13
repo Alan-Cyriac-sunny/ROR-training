@@ -1,6 +1,11 @@
 <h3 align="center">Update  Details</h3>
 <div align ="center">
     <%= form_with model: @Employe, url: employee_path, method: :PATCH, local: true do |form| %>
+    <label>My Avatar</label>
+    <%= image_tag(@employee.file_url) if @employee.file? %>
+    <%= form.file_field :file %>
+    <br>
+    <br>
     <%= form.label :name %>
     <%= form.text_field :name, value: @employee.name %>
     <br>

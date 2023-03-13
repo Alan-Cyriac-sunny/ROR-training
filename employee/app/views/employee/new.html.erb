@@ -32,6 +32,11 @@
   	<%= form.select :department, ['Sales', 'Marketing', 'Engineering', 'Finance'] %>
 	<br>
 	<br>
+	<label>My Avatar</label>
+    <%= image_tag(@employee.file_url) if @employee.file? %>
+    <%= form.file_field :file %>
+	<br>
+	<br>
 	<br>
 	<%= form.submit 'submit' %>
 </div>
