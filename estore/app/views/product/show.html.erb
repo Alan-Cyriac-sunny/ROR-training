@@ -1,0 +1,8 @@
+<h1 align="center">Showing details of <%= @product.name %> </h1>
+<div align="center">
+	<b>Description:&nbsp </b><%= @product.description %><br><br>
+	<b>Price:&nbsp$</b><%= @product.price %><br><br>
+	<b>Available Stocks:&nbsp</b><%= @product.inventory_count %><br><br>
+	<%= link_to 'Buy' , sale_index_path(product_id: @product.id, price: @product.price, quantity: 1)  %>
+<br><br>
+</div>

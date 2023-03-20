@@ -1,0 +1,6 @@
+<h1 align="center">Buy <%= @sale.product.name %></h1>
+<div align="center">
+	No of items: <%= @sale.quantity%><br><br><br>
+	<%= button_to "Pay $#{@sale.product.price}", sale_index_path(product_id: @sale.product.id, payment_status: 'completed') %>
+	<%= button_to "cancel", sale_index_path(product_id: @sale.product.id, payment_status: 'failed' ) %>
+</div>
