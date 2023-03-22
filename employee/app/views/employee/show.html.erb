@@ -1,5 +1,10 @@
 <div align="center">
 	<h1> Showing Details of: <%= @employee.name %></h1>
+	<% if @employee.file.present? %>
+    	<%= image_tag(@employee.file.url) %>
+  	<% else %>
+    	No image available
+  	<% end %>
 	<b>Email: </b><%= @employee.email %><br><br>
 	<b>Contact: </b><%= @employee.phone %><br><br>
 	<b>Gender: </b><%= @employee.gender %><br><br>

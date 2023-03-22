@@ -13,6 +13,5 @@ class Sale < ApplicationRecord
   end
 
   def update_inventory_count
-    product.update(inventory_count: product.inventory_count - quantity)
   end
 end

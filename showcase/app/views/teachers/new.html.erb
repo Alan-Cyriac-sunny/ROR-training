@@ -1,0 +1,16 @@
+<h1 align ='center'>New Teacher</h1>
+
+<%= form_with model: @teacher, url: teachers_path, method: :post, local: true do |form| %>
+<div align="center">
+	<%= form.label :name %>
+	<%= form.text_field :name %>
+	<br>
+	<br>
+	<label>picture</label>
+    <%= form.file_field :file %>
+	<br>
+	<br>
+	<br>
+	<%= form.submit 'submit' %>
+</div>
+<% end %>

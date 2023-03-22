@@ -1,0 +1,20 @@
+<h1 align ='center'>New Student</h1>
+
+<%= form_with model: @student, url: students_path, method: :post, local: true do |form| %>
+<div align="center">
+	<%= form.label :name %>
+	<%= form.text_field :name %>
+	<br>
+	<br>
+	<label>Admisson number</label>
+	<%= form.text_field :admission_number %>
+	<br>
+	<br>
+	<label>picture</label>
+    <%= form.file_field :file %>
+	<br>
+	<br>
+	<br>
+	<%= form.submit 'submit' %>
+</div>
+<% end %>
