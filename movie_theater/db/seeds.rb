@@ -3,6 +3,8 @@
 #
 # Examples:
 #
-movies = Movie.create([{ name: 'Star Wars', character: 'Luke' },
-                       { name: 'Lord of the Rings', character: 'Frodo' }])
+# movies = Movie.create([{ name: 'Star Wars', character: 'Luke' },
+#                        { name: 'Lord of the Rings', character: 'Frodo' }])
 #   Character.create(name: "Luke", movie: movies.first)
+Director.create( name: 'Peter Jackson')
+Director.create( name: 'John Lasseter')
