@@ -1,6 +1,7 @@
 class Api::V1::UsersController < ApplicationController
   before_action :authorize_request, except: :create
   before_action :find_user, except: %i[create index]
+  before_action :admin, only: %i[create update destroy index]
 
   # GET /users
   def index
@@ -46,7 +47,14 @@ class Api::V1::UsersController < ApplicationController
       render json: { errors: 'User not found' }, status: :not_found
   end
 
+  def admin
+    @role = @current_user.role.role
+    if @role == "user"
+      render json: { message: "You have no privallage" }, status: :ok
+    end
+  end
+
   def user_params
-    params.permit(:name, :username, :email, :password, :password_confirmation)
+    params.permit(:user_id, :name, :username, :email, :password, :password_confirmation)
   end
 end

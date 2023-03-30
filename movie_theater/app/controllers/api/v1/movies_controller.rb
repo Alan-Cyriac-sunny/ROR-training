@@ -3,15 +3,19 @@
 # controller for movies
 class Api::V1::MoviesController < ApplicationController
   before_action :authorize_request
-  before_action :find_movie, only: %i[show update destroy]
+  before_action :find_movie, only: %i[show destroy update]
+  before_action :admin, only: %i[create update destroy]
 
-  def index 
-    movies = Movie.all
+  def index
+    
+    movies = Movie.all.where(status: true).order(:id)
     render json: movies
   end
 
   def show
-      render json: { message: "movie retrieved", "movie details" => @movie }, status:302
+    # binding.pry
+    @movie = Movie.find(params[:id])
+    render json: @movie, scope: @current_user, status: :ok
   end
 
   def create
@@ -31,39 +35,30 @@ class Api::V1::MoviesController < ApplicationController
     end
   end
 
-  def new_comment
-    # binding.pry
-    if Movie.find(params[:movie_id])
-      user_movie = UserMovie.new
-      user_movie.comment = params[:comment]
-      user_movie.movie_id = params[:movie_id]
-      binding.pry
-      user_movie.user_id = @current_user.id
-      if user_movie.save
-        render json: { message: 'Comment created', 'Created comment' => user_movie }, status: :created
-      else
-        render json: { message: user_movie.errors.messages }, status: :unprocessable_entity
-      end
-    else
-      render json: { message: "not_found" }, status: :not_found
-    end
-  end
-
   def destroy
-    @movie.destroy
+    @movie.status = false
+    @movie.save!
     render json: { message: 'Movie deleted' }, status: :ok
   end
 
   private
 
   def movies_params
-    params.require(:movie).permit(:name, :character, :director_id, :comment)
+    
+    params.permit(:name, :character, :comment)
   end
 
   def find_movie
     @movie = Movie.find_by(id: params[:id])
     if !@movie.present?
       render json: { message: "not found" }, status: :not_found
+    end
+  end
+
+  def admin
+    @role = @current_user.role.role
+    if @role == "user"
+      render json: { message: "You have no privallage" }, status: :ok
     end
   end
 end

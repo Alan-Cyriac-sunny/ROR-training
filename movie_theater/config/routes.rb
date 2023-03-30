@@ -3,13 +3,22 @@ Rails.application.routes.draw do
 	namespace :api do
 		namespace :v1 do
 			resources :users, param: :_username
+      resources :user_movies do
+        post '/comment', to: "user_movies#comment"
+        post '/like', to: "user_movies#like"
+      end
 			post '/auth/login', to: 'authentication#login'
 			delete '/auth/logout', to: 'authentication#logout'
 			resources :movies do
-				post '/new_commen', to: "movies#new_comment"
+				post '/comment', to: "movies#comment"
 			end
-			resources :directors
-			get '/*a', to: 'application#not_found'
+      resources :actors
+      resources :crews
+      resources :roles
+      resources :crew_types
+      resources :movie_cast
+      resources :movie_crews
+			# get '/*a', to: 'application#not_found'
 		end
 	end
 	# Defines the root path route ("/")
